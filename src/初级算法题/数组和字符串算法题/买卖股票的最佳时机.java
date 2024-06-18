@@ -21,15 +21,9 @@ public class 买卖股票的最佳时机 {
         //未交易
         int length = prices.length;
 
-        int hold = -prices[0];
-        int noHold = 0;
-
-        for (int i = 1; i < length; i++) {
-            hold = Math.max(hold,noHold - prices[i]);
-            noHold = Math.max(noHold, hold + prices[i]);
-
-            System.out.println(hold);
-            System.out.println(noHold);
+        int total = 0;
+        for (int i = 0; i < length-1; i++) {
+           total += Math.max(0,prices[i+1]-prices[i]);
         }
 
 
