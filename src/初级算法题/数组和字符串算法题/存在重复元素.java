@@ -3,6 +3,7 @@ package 初级算法题.数组和字符串算法题;
 
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 
 public class 存在重复元素 {
@@ -13,16 +14,18 @@ public class 存在重复元素 {
     }
 
     public static boolean containsDuplicate(int[] nums) {
-        //先排序
-        Arrays.sort(nums);
-        //排完之后如果有重复的就会并在一起
-        System.out.println(Arrays.toString(nums));
-        for (int i = 0; i < nums.length-1; i++) {
-            if (nums[i]==nums[i+1]){
+        //hashSet解决
+        HashSet<Integer> set = new HashSet<>();
+        for (int j :nums) {
+               //执行添加，如果添加失败就等于有相同元素
+            //重复就返回false再取反
+            if(!set.add(j)){
                 return true;
             }
 
         }
+
+
         return false;
 
     }
