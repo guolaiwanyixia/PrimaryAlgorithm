@@ -24,28 +24,37 @@ public class 有效的数独 {
     一个有效的数独（部分已被填充）不一定是可解的。
     只需要根据以上规则，验证已经填入的数字是否有效即可。
     空白格用'.'表示。
+
      */
     public static boolean isValidSudoku(char[][] board) {
-        boolean[][] line = new boolean[9][9]; //一行
-        boolean[][] column = new boolean[9][9];//一列
-        boolean [][] cell = new boolean[9][9];//3*3 小格子
+        int [] line = new int[9];//一行
+        int [] column = new int[9];//一列
+        int [] cell = new int[9];//3*3 小格子
         int length = board.length;
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                //没有数字就跳过
-                if (board[i][j] == '.') {
+        for (int i = 0; i < length; i++){
+            for (int j = 0; j < length; j++){
+                //没有数字就把当前位置填充0
+                if (board[i][j] == '.'){
 //    System.out.println("略过: "+board[i][j]+" 行:"+(i+1)+" 列:"+(j+1));
                     continue;
                 }
-                int num = board[i][j] - '0' - 1; //得到对应的int值的下标
+                //按位左移运算  得到的值-1  在往左移动 得到对应的位置的下标赋成1
+                int shift =1<< (board[i][j] - '0' - 1); //得到对应的int值的下标
                  //第几个小宫格
                 int k = i / 3 * 3 + j / 3;
-                //判断当前值是否已经存在了
-              if(line[i][num] || column[j][num] || cell[k][num]){
+                //判断当前值是否为1，是1就存在了
+                //k & line[i] 按位运算   同位置对比如果有一个是1 那就是1 ，如果有一个是0就是0
+                //如果两个相应的位都是 1，则结果位是 1。
+                //如果两个相应的位中至少有一个是 0，则结果位是 0。
+              if((shift & line[i])!= 0 ||
+                      (shift & column[j])!= 0
+                      || (shift & cell[k])!= 0){
                        return false;
               }
-                //把检查过的值赋为true
-                line[i][num] = column[j][num] = cell[k][num] = true ;
+                 //把检查过的值赋为true
+                line[i] |= shift ;
+                column[j] |= shift ;
+                cell[k] |= shift ;
 
 
 
