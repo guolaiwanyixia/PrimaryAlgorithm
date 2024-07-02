@@ -17,10 +17,10 @@ public class 旋转图像 {
 
         int length = matrix.length;
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length /2 ; i++) {
             int []tmp = matrix[i];
             matrix[i] = matrix[length-1-i];
-            matrix[length-1-i] = tmp ;
+            matrix[length-1-i] = tmp;
         }
         //然后对角线交换
 
